@@ -1,0 +1,370 @@
+{
+  "name": "HackTrack",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                0,
+                5
+              ],
+              "triggerAtHour": 18,
+              "triggerAtMinute": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        64
+      ],
+      "id": "3b06ece1-761f-4e4a-9620-82ce30003812",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "pavananish47@gmail.com",
+        "subject": "=Main ppdys !",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1808,
+        -192
+      ],
+      "id": "816bb228-8cc3-49b7-bfd3-ff454adf320f",
+      "name": "Send a message",
+      "webhookId": "44476f15-b017-4c39-b85f-6efe18462064",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jfzZJ6e7ucnO3dVn",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=ROLE: Notification Formatter\n\nYou are NOT a chat assistant.\nYou do NOT explain anything.\nYou do NOT add extra text.\n\nInput is a list of hackathon/event items with fields like:\n- title\n- link\n- date (optional)\n- source (optional)\n\nTask:\n- Keep only real hackathons or tech events.\n- Ignore generic listing pages.\n- Remove duplicates.\n- Format a clean notification message.\n\nRules (MANDATORY):\n1. Output plain text only.\n2. No markdown headings, no emojis, no explanations.\n3. Each event must include title and link.\n4. If input is empty, output exactly: \"No new hackathons today.\"\n\nOutput format EXACTLY like this:\n\nNew Hackathons & Tech Events:\n\n- <Event Title>\n  <Event Link>\n\n- <Event Title>\n  <Event Link>\n\nInput:\n{{ $json }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        928,
+        -192
+      ],
+      "id": "4ec3e0eb-e8cc-4074-b7fc-571da6f38bd7",
+      "name": "Remainder"
+    },
+    {
+      "parameters": {
+        "url": "https://serpapi.com/search.json?engine=google&q=hackathon+India+site:devfolio.co+OR+site:unstop.com+OR+site:mlh.io&hl=en&gl=in&api_key=a5504a93e0396532cd746092ae24704c70b092dbe32d68aa9d5428dd84738d59",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        80
+      ],
+      "id": "01324d88-6d57-4cea-ae01-ae1965ed8f31",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8c081f9b-454b-46cf-a1e8-9e2fa3d59bc4",
+              "leftValue": "={{\n  $json.link &&\n  (\n    $json.link.includes(\"devfolio.co\") ||\n    $json.link.includes(\"unstop.com\") ||\n    $json.link.includes(\"mlh.io\")\n  )\n}}\n",
+              "rightValue": "={{\n  $json.link &&\n  (\n    $json.link.includes(\"devfolio.co\") ||\n    $json.link.includes(\"unstop.com\") ||\n    $json.link.includes(\"mlh.io\")\n  )\n}}\n",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        672,
+        80
+      ],
+      "id": "bff0f2e5-8753-4512-9a33-d7d10560c436",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "pavananish47@gmail.com",
+        "subject": "=Main ppdys !",
+        "message": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1712,
+        112
+      ],
+      "id": "1d90b544-65fc-4960-95e2-a5867d89f94b",
+      "name": "Send a message1",
+      "webhookId": "44476f15-b017-4c39-b85f-6efe18462064",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "jfzZJ6e7ucnO3dVn",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=say Hello world",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1344,
+        80
+      ],
+      "id": "56c8cf58-4cab-4608-abeb-d3aabaf90ae2",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "organic_results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        448,
+        80
+      ],
+      "id": "4cd0272e-3236-4315-a52b-7117f6958375",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        928,
+        -16
+      ],
+      "id": "1ded0d9a-9448-46a8-a86c-1b2c20428ae4",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "xiNgIrMeSqH6Yflt",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0763a8f7-9594-4af6-be35-c389503da3b6",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "No new hackathons today.",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1296,
+        -192
+      ],
+      "id": "1eb5f976-1911-472b-9dc8-86b244540ed1",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        304
+      ],
+      "id": "ba82a46a-ad97-4486-bfa2-7ce69e56a8fd",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "xiNgIrMeSqH6Yflt",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remainder": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Remainder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Remainder",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "c8d0f97f-cf89-45ad-bac3-50c1bbee86c1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "aba3cf351131c50f6d63088b922919a6467c185c262d678fe39566bee6aa1066"
+  },
+  "id": "VDQgL2XluEd4OaNi",
+  "tags": []
+}
