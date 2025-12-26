@@ -20,8 +20,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        0,
-        64
+        -3264,
+        400
       ],
       "id": "3b06ece1-761f-4e4a-9620-82ce30003812",
       "name": "Schedule Trigger"
@@ -36,8 +36,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        1808,
-        -192
+        -1504,
+        224
       ],
       "id": "816bb228-8cc3-49b7-bfd3-ff454adf320f",
       "name": "Send a message",
@@ -58,25 +58,39 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        928,
-        -192
+        -2144,
+        272
       ],
       "id": "4ec3e0eb-e8cc-4074-b7fc-571da6f38bd7",
       "name": "Remainder"
     },
     {
       "parameters": {
-        "url": "https://serpapi.com/search.json?engine=google&q=hackathon+India+site:devfolio.co+OR+site:unstop.com+OR+site:mlh.io&hl=en&gl=in&api_key=a5504a93e0396532cd746092ae24704c70b092dbe32d68aa9d5428dd84738d59",
+        "url": "https://serpapi.com/search.json?engine=google&q=hackathon+India+site:devfolio.co+OR+site:unstop.com+OR+site:mlh.io&hl=en&gl=in",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        224,
-        80
+        -2816,
+        400
       ],
       "id": "01324d88-6d57-4cea-ae01-ae1965ed8f31",
-      "name": "HTTP Request"
+      "name": "HTTP Request",
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "NDrZB9PrtVbAhwQJ",
+          "name": "Query Auth account 2"
+        }
+      }
     },
     {
       "parameters": {
@@ -107,8 +121,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        672,
-        80
+        -2368,
+        400
       ],
       "id": "bff0f2e5-8753-4512-9a33-d7d10560c436",
       "name": "If"
@@ -123,8 +137,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        1712,
-        112
+        -1216,
+        544
       ],
       "id": "1d90b544-65fc-4960-95e2-a5867d89f94b",
       "name": "Send a message1",
@@ -145,8 +159,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1344,
-        80
+        -1568,
+        544
       ],
       "id": "56c8cf58-4cab-4608-abeb-d3aabaf90ae2",
       "name": "AI Agent"
@@ -159,8 +173,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        448,
-        80
+        -2592,
+        400
       ],
       "id": "4cd0272e-3236-4315-a52b-7117f6958375",
       "name": "Split Out"
@@ -173,8 +187,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
       "typeVersion": 1,
       "position": [
-        928,
-        -16
+        -2080,
+        496
       ],
       "id": "1ded0d9a-9448-46a8-a86c-1b2c20428ae4",
       "name": "Groq Chat Model",
@@ -212,8 +226,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1296,
-        -192
+        -1792,
+        272
       ],
       "id": "1eb5f976-1911-472b-9dc8-86b244540ed1",
       "name": "If1"
@@ -226,8 +240,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
       "typeVersion": 1,
       "position": [
-        1264,
-        304
+        -1504,
+        768
       ],
       "id": "ba82a46a-ad97-4486-bfa2-7ce69e56a8fd",
       "name": "Groq Chat Model1",
@@ -360,7 +374,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "c8d0f97f-cf89-45ad-bac3-50c1bbee86c1",
+  "versionId": "96fa945c-95fb-484a-97ab-58f8c0dc82e9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "aba3cf351131c50f6d63088b922919a6467c185c262d678fe39566bee6aa1066"
