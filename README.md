@@ -22,7 +22,6 @@ The project follows **industry-standard secret management** and is safe to publi
 * 🔐 No API keys committed to the repository
 
 ---
-
 ## 🧠 Architecture Overview
 
 ```
