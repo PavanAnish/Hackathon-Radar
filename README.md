@@ -1,8 +1,3 @@
-Here’s a **clean, professional README** you can drop straight into your repo.
-It explains everything **without leaking secrets** and looks solid for GitHub + resume.
-
----
-
 # HackTrack 🚀
 
 **Automated Hackathon & Tech Event Alerts using n8n + SerpAPI**
@@ -156,5 +151,6 @@ MIT License (or add one if you prefer)
 * Devfolio, Unstop, MLH (event platforms)
 
 ---
+
 
 
